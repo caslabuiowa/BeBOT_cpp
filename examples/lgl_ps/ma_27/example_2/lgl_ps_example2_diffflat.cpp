@@ -230,7 +230,7 @@ public:
 
         // After calculating final_time_ and lagrange_result_
         writeToCSV(final_time_, lagrange_result_, "x.csv");
-
+        writeToCSV(lgl.getNodes(), solution_x_, "x_controlpoints.csv");
         //std::cout << "CSV file writing completed." << std::endl;
         
         // Print tnodes here
@@ -251,6 +251,7 @@ public:
         //std::cout << "Finalizing solution, preparing to write CSV file." << std::endl;
         // After calculating final_time_ and lagrange_result_
         writeToCSV(final_time_, lagrange_resultx2_, "x1.csv");
+        writeToCSV(lgl.getNodes(), solution_x2_, "x1_controlpoints.csv");
         //std::cout << "CSV file writing completed." << std::endl;
 
         solution_u_.resize(n-1);
@@ -263,6 +264,7 @@ public:
         //std::cout << "Finalizing solution, preparing to write CSV file." << std::endl;
         // After calculating final_time_ and lagrange_result_
         writeToCSV(final_time_, lagrange_resultu_, "u.csv");
+        writeToCSV(lgl.getNodes(), solution_u_, "u_controlpoints.csv");
         //std::cout << "CSV file writing completed." << std::endl;
     }
     // Getter for the solution

@@ -4,8 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "../../../../include/lgl_ps.h"
-#include "../../../../include/lagrangepoly.h"
+#include "../../../../include/bebot.h"
+#include "../../../../include/bernsteinpoly.h"
 #include <iomanip>
 
 using namespace Ipopt;
@@ -13,8 +13,8 @@ using namespace Ipopt;
 class PointSetProblem : public Ipopt::TNLP {
 public:
     PointSetProblem(int N, double tf, double amax, double amin, double x10, double x1f, double x20, double x2f)
-        : N_(N), tf_(tf), amax_(amax), amin_(amin), x10_(x10), x1f_(x1f), x20_(x20), x2f_(x2f), lgl(N, tf_) {
-        lgl.calculate();
+        : N_(N), tf_(tf), amax_(amax), amin_(amin), x10_(x10), x1f_(x1f), x20_(x20), x2f_(x2f), bebot_(N, tf_) {
+        bebot_.calculate();
     }
 
     // write data to CSV
@@ -122,9 +122,9 @@ public:
         }
 
         // Get the differentiation matrix
-        LGL_PS lgl(N_, x[(N_+ 2) - 1]);
-        lgl.calculate();
-        std::vector<std::vector<double>> Dm = lgl.getDifferentiationMatrix();
+        Bebot Bebot(N_, x[(N_+ 2) - 1]);
+        Bebot.calculate();
+        std::vector<std::vector<double>> Dm = Bebot.getDifferentiationMatrix();
         
         // Printing Dm matrix
         //std::cout << "Dm matrix:\n";
@@ -217,57 +217,64 @@ public:
         // Updating tf_ with the optimized value of tf (which is x[(N_+ 2) - 1])
         tf_ = x[(N_+ 2) - 1];
         
-        // Now recalculate the LGL points with the updated final time tf_
-        lgl = LGL_PS(N_, tf_); // You might need to modify LGL_PS to allow updating N and tf
-        lgl.calculate();
-
-        // Calculating final time t using obj_value as final tf for lagrangepoly library
+        // Now recalculating the BeBOT points with the updated final time tf_
+        bebot_ = Bebot(N_, tf_);
+        bebot_.calculate();
+        
+        // Calculating final time t using obj_value as final tf for BernsteinPoly library
         final_time_.resize(1000);
         for (int i = 0; i < 1000; ++i) {
             final_time_[i] = i * obj_value / 999.0;
             //std::cout << "final_time_[" << i << "] = " << final_time_[i] << std::endl;
         }
-        lagrange_result_ = LagrangePoly(solution_x_, lgl.getNodes(), final_time_);
-        //std::cout << "Finalizing solution, preparing to write CSV file." << std::endl;
-
-        // After calculating final_time_ and lagrange_result_
-        writeToCSV(final_time_, lagrange_result_, "x.csv");
-        writeToCSV(lgl.getNodes(), solution_x_, "x_controlpoints.csv");
-        //std::cout << "CSV file writing completed." << std::endl;
+        // Calculating final time t using obj_value as final tf for BernsteinPoly library
+        std::vector<std::vector<double>> solution_x_2d(1, std::vector<double>(solution_x_.begin(), solution_x_.end()));
+        bernsteinpoly_result_ = BernsteinPoly(solution_x_2d, final_time_, 0, tf_);
         
-        // Print tnodes here
-        //const std::vector<double>& tnodes = lgl.getNodes();
-        //std::cout << "tnodes: ";
-        //for (double tn : tnodes) {
-        //    std::cout << tn << " ";
-        //}
-        //std::cout << std::endl;
-
+        // After calculating final_time_ and bernsteinpoly_result_
+        // Flatten bernsteinpoly_result_
+        std::vector<double> flattened_result;
+        for (const auto& row : bernsteinpoly_result_) {
+            flattened_result.insert(flattened_result.end(), row.begin(), row.end());
+        }
+        writeToCSV(final_time_, flattened_result, "x.csv");
+        writeToCSV(bebot_.getNodes(), solution_x_, "x_controlpoints.csv");
         solution_x2_.resize(n-1);
         for (Index i = 0; i < n-1; ++i) {
             solution_x2_[i] = g[i];
             //std::cout << "solution_x2_[" << i << "] = " << solution_x2_[i] << std::endl;
         }
-
-        lagrange_resultx2_ = LagrangePoly(solution_x2_, lgl.getNodes(), final_time_);
-        //std::cout << "Finalizing solution, preparing to write CSV file." << std::endl;
-        // After calculating final_time_ and lagrange_result_
-        writeToCSV(final_time_, lagrange_resultx2_, "x1.csv");
-        writeToCSV(lgl.getNodes(), solution_x2_, "x1_controlpoints.csv");
-        //std::cout << "CSV file writing completed." << std::endl;
-
+        std::vector<std::vector<double>> solution_x2_2d(1, std::vector<double>(solution_x2_.begin(), solution_x2_.end()));      
+        bernsteinpoly_resultx2_ = BernsteinPoly(solution_x2_2d, final_time_, 0, tf_);
+        
+        std::vector<double> flattened_result1;
+        for (const auto& row : bernsteinpoly_resultx2_) {
+            flattened_result1.insert(flattened_result1.end(), row.begin(), row.end());
+        }
+        writeToCSV(final_time_, flattened_result1, "x1.csv");
+        writeToCSV(bebot_.getNodes(), solution_x2_, "x1_controlpoints.csv");
         solution_u_.resize(n-1);
         for (Index i = 0; i < n-1; ++i) {
             solution_u_[i] = g[N_ + 1 + i];
             //std::cout << "solution_u_[" << i << "] = " << solution_u_[i] << std::endl;
         }
+        std::vector<std::vector<double>> solution_u_2d(1, std::vector<double>(solution_u_.begin(), solution_u_.end()));        
+        bernsteinpoly_resultu_ = BernsteinPoly(solution_u_2d, final_time_, 0, tf_);
+        
+        //std::cout << "solution_u_2d :" << std::endl;
+        //for (const auto& row : bernsteinpoly_resultu_) {
+        //    for (const auto& elem : row) {
+        //        std::cout << elem << " ";
+        //    }
+        //    std::cout << std::endl; 
+        //}
 
-        lagrange_resultu_ = LagrangePoly(solution_u_, lgl.getNodes(), final_time_);
-        //std::cout << "Finalizing solution, preparing to write CSV file." << std::endl;
-        // After calculating final_time_ and lagrange_result_
-        writeToCSV(final_time_, lagrange_resultu_, "u.csv");
-        writeToCSV(lgl.getNodes(), solution_u_, "u_controlpoints.csv");
-        //std::cout << "CSV file writing completed." << std::endl;
+        std::vector<double> flattened_result2;
+        for (const auto& row : bernsteinpoly_resultu_) {
+            flattened_result2.insert(flattened_result2.end(), row.begin(), row.end());
+        }
+        writeToCSV(final_time_, flattened_result2, "u.csv");
+        writeToCSV(bebot_.getNodes(), solution_u_, "u_controlpoints.csv");
     }
     // Getter for the solution
     const std::vector<Number>& get_solution_x() const { return solution_x_; }
@@ -284,19 +291,19 @@ private:
     double x1f_;
     double x20_;
     double x2f_;
-    LGL_PS lgl;
+    Bebot bebot_;
     std::vector<Number> solution_u_;
     std::vector<Number> solution_x2_;
-    std::vector<Number> solution_x_; 
-    Number final_obj_value_; 
+    std::vector<Number> solution_x_;
+    Number final_obj_value_;
     std::vector<double> final_time_;
-    std::vector<double> lagrange_resultu_;
-    std::vector<double> lagrange_resultx2_;
-    std::vector<double> lagrange_result_;
+    std::vector<std::vector<double>> bernsteinpoly_resultu_;
+    std::vector<std::vector<double>> bernsteinpoly_resultx2_;
+    std::vector<std::vector<double>> bernsteinpoly_result_;
 
 public:
-    const std::vector<double>& get_lagrange_result() const { return lagrange_result_; }
-
+    const std::vector<std::vector<double>>& get_bernsteinpoly_result() const { 
+        return bernsteinpoly_result_; }
 };
 
 int main() {
@@ -308,13 +315,6 @@ int main() {
     double x1f = 0.0;
     double x20 = 0.0;
     double x2f = 0.0;
-
-    //LGL_PS lgl(N, tf);
-    //lgl.calculate();
-
-    //std::vector<double> tnodes = lgl.getNodes();
-    //std::vector<double> w = lgl.getWeights();
-    //std::vector<std::vector<double>> Dm = lgl.getDifferentiationMatrix();
 
     SmartPtr<TNLP> pointSetProblem = new PointSetProblem(N, tf, amax, amin, x10, x1f, x20, x2f);
     SmartPtr<IpoptApplication> app = IpoptApplicationFactory();
@@ -370,13 +370,15 @@ int main() {
         std::cout << std::endl;
         std::cout << "Optimal Objective Value: " << final_obj_value << std::endl;
         
-        // Retrieve the Lagrange polynomial result from the problem
-        const auto& lagrange_result = static_cast<PointSetProblem*>(GetRawPtr(pointSetProblem))->get_lagrange_result();
-        //std::cout << "Lagrange Polynomial Result (xN): ";
-        for (double value : lagrange_result) {
-            //std::cout << value << " ";
-        }
-        std::cout << std::endl; // Make sure to end the line after printing
+        // Retrieve the Bernstein polynomial result from the problem
+        const auto& bernsteinpoly_result = static_cast<PointSetProblem*>(GetRawPtr(pointSetProblem))->get_bernsteinpoly_result();
+        //std::cout << "Bernstein Polynomial Result (xN): " << std::endl;
+        //for (const auto& row : bernsteinpoly_result) {
+        //    for (double value : row) {
+        //        std::cout << value << " ";
+        //    }
+        //    std::cout << std::endl; // New line for each row
+        //}
     } else {
         std::cout << "IPOPT optimization failed with status " << status << std::endl;
     }
@@ -384,6 +386,7 @@ int main() {
     return 0;
 }
 
-// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/lgl_ps/ma_57/example_2$ g++ -o lgl_ps_example2_diffflat ~/dev/optimization/BeBOT_cpp/examples/lgl_ps/ma_57/example_2/lgl_ps_example2_diffflat.cpp ~/dev/optimization/BeBOT_cpp/bebot/lgl_ps.cpp ~/dev/optimization/BeBOT_cpp/bebot/lagrangepoly.cpp -I~/dev/optimization/BeBOT/include -I./Ipopt/src/ -L./Ipopt/src/.libs -lipopt -ldl -lm -lstdc++
-// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/lgl_ps/ma_57/example_2$ export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
-// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/lgl_ps/ma_57/example_2$ ./lgl_ps_example2_diffflat
+// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/bebot/ma_57/example_2$ g++ -o bebot_example2 ~/dev/optimization/BeBOT_cpp/examples/bebot/ma_57/example_2/bebot_example2.cpp ~/dev/optimization/BeBOT_cpp/bebot/bebot.cpp ~/dev/optimization/BeBOT_cpp/bebot/bernsteinpoly.cpp ~/dev/optimization/BeBOT_cpp/bebot/bernsteindifferentialmatrix.cpp ~/dev/optimization/BeBOT_cpp/bebot/bernsteinmatrix_a2b.cpp ~/dev/optimization/BeBOT_cpp/bebot/degelevmatrix.cpp ~/dev/optimization/BeBOT_cpp/bebot/nchoosek_mod.cpp -I~/dev/optimization/BeBOT/include -I./Ipopt/src/ -L./Ipopt/src/.libs -lipopt -ldl -lm -lstdc++
+// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/bebot/ma_57/example_2$ export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/bebot/ma_57/example_2$ ./bebot_example2
+

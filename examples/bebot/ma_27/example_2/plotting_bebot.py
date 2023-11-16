@@ -25,7 +25,7 @@ plt.scatter(cp_times1, cp_values1, color='white', s=70, label='x Control Points'
 plt.scatter(cp_times2, cp_values2, color='white', s=60, label='x1 Control Points', edgecolor='red')
 plt.scatter(cp_times3, cp_values3, color='white', s=50, label='u Control Points', edgecolor='green')  
 
-plt.title('LGL Results')
+plt.title('BeBOT Results')
 plt.xlabel('Time')
 plt.ylabel('Value')
 plt.grid(True)

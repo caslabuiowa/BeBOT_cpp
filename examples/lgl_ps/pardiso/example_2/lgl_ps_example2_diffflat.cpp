@@ -1,5 +1,5 @@
-#include "../../../../Ipopt_ma57_solver/src/Interfaces/IpIpoptApplication.hpp"
-#include "../../../../Ipopt_ma57_solver/src/Interfaces/IpTNLP.hpp"
+#include "../../../../Ipopt_pardiso/src/Interfaces/IpIpoptApplication.hpp"
+#include "../../../../Ipopt_pardiso/src/Interfaces/IpTNLP.hpp"
 #include <cmath>
 #include <iostream>
 #include <fstream>
@@ -233,6 +233,7 @@ public:
         // After calculating final_time_ and lagrange_result_
         writeToCSV(final_time_, lagrange_result_, "x.csv");
         writeToCSV(lgl.getNodes(), solution_x_, "x_controlpoints.csv");
+
         //std::cout << "CSV file writing completed." << std::endl;
         
         // Print tnodes here
@@ -319,7 +320,7 @@ int main() {
     SmartPtr<TNLP> pointSetProblem = new PointSetProblem(N, tf, amax, amin, x10, x1f, x20, x2f);
     SmartPtr<IpoptApplication> app = IpoptApplicationFactory();
 
-    app->Options()->SetStringValue("linear_solver", "ma57");
+    app->Options()->SetStringValue("linear_solver", "pardiso");
     // A smaller number pivots for sparsity, a larger number pivots for stability
     //app->Options()->SetNumericValue("ma57_pivtol", 1e-8);//0.99 // 1e-8 // between 0 and 1
     // Ipopt may increase pivtol as high as ma27_pivtolmax to get a more accurate solution to the linear system
@@ -345,7 +346,7 @@ int main() {
     app->Options()->SetIntegerValue("max_iter", 5000); // Change to my desired maximum iterations
 
     // Adjust the convergence tolerance
-    app->Options()->SetNumericValue("tol", 1e-6); // Change to my desired tolerance
+    app->Options()->SetNumericValue("tol", 1e-2); // Change to my desired tolerance
 
 
 
@@ -384,6 +385,6 @@ int main() {
     return 0;
 }
 
-// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/lgl_ps/ma_57/example_2$ g++ -o lgl_ps_example2_diffflat ~/dev/optimization/BeBOT_cpp/examples/lgl_ps/ma_57/example_2/lgl_ps_example2_diffflat.cpp ~/dev/optimization/BeBOT_cpp/bebot/lgl_ps.cpp ~/dev/optimization/BeBOT_cpp/bebot/lagrangepoly.cpp -I~/dev/optimization/BeBOT/include -I./Ipopt/src/ -L./Ipopt/src/.libs -lipopt -ldl -lm -lstdc++
-// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/lgl_ps/ma_57/example_2$ export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
-// vpetrov@lnx-me002:~/dev/optimization/BeBOT_cpp/examples/lgl_ps/ma_57/example_2$ ./lgl_ps_example2_diffflat
+// vpetrov@lnx-me002:/local/vol00/home/vpetrov/dev/optimization/BeBOT_cpp/examples/lgl_ps/pardiso/example_2$ g++ -o lgl_ps_example2_diffflat ~/dev/optimization/BeBOT_cpp/examples/lgl_ps/pardiso/example_2/lgl_ps_example2_diffflat.cpp ~/dev/optimization/BeBOT_cpp/bebot/lgl_ps.cpp ~/dev/optimization/BeBOT_cpp/bebot/lagrangepoly.cpp -I~/dev/optimization/BeBOT/include -I/usr/local/include -L/usr/local/lib -lipopt -L/usr/local/lib/pardiso/panua-pardiso-20230908-linux/lib -lpardiso -ldl -lm -lstdc++
+// vpetrov@lnx-me002:/local/vol00/home/vpetrov/dev/optimization/BeBOT_cpp/examples/lgl_ps/pardiso/example_2$ export LD_LIBRARY_PATH=/usr/local/lib/pardiso/panua-pardiso-20230908-linux/lib:$LD_LIBRARY_PATH
+// vpetrov@lnx-me002:/local/vol00/home/vpetrov/dev/optimization/BeBOT_cpp/examples/lgl_ps/pardiso/example_2$ ./lgl_ps_example2_diffflat
