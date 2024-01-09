@@ -85,6 +85,11 @@ public:
             }
         }
 
+        // Print constraint bounds
+        for (Index i = 0; i < 2 * (N_ + 1); ++i) {
+            std::cout << "g_l[" << i << "] = " << g_l[i] << ", g_u[" << i << "] = " << g_u[i] << std::endl;
+        }
+
         return true;
     }
 
@@ -153,7 +158,7 @@ public:
         // Transpose g1 to create a vertical column vector
         for (Index i = 0; i <= N_; i++) {
             g[i] = g1[i];
-            //std::cout << "g[" << i << "] = " << g[i] << std::endl;
+            std::cout << "g[" << i << "] = " << g[i] << std::endl;
             
         }
 
@@ -168,7 +173,7 @@ public:
         // Transpose g2 to create the final vertical column vector
         for (Index i = 0; i <= N_; i++) {
             g[N_ + 1 + i] = g2[i];
-            //std::cout << "g[" << N_ + 1 + i << "] = " << g[N_ + 1 + i] << std::endl;
+            std::cout << "g[" << N_ + 1 + i << "] = " << g[N_ + 1 + i] << std::endl;
         }
 
         return true;

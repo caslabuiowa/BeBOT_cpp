@@ -4,9 +4,16 @@
 #include <iomanip>  
 
 std::vector<std::vector<double>> BernsteinMatrix_a2b(int N, const std::vector<double>& t, double tmin, double tmax) {
-    if (!t.empty()) {
-        tmax = t.back();
-        tmin = t.front();
+    //std::cout << "tmax: " << tmax << std::endl;
+    //std::cout << "tmin: " << tmin << std::endl;
+    if (!t.empty() && tmin == 0) {
+        tmax = tmax;
+        //std::cout << "tmax: " << tmax << std::endl;
+        tmin = tmin;
+        //std::cout << "tmin: " << tmin << std::endl;
+    } else {
+        // tmax and tmin retain their original values
+        //std::cout << "Using provided tmax: " << tmax << " and tmin: " << tmin << std::endl;
     }
 
     std::vector<double> B(N + 1, 1.0); 
