@@ -5,4 +5,6 @@ different solvers: MA27, MA57 - https://www.hsl.rl.ac.uk/catalogue/ma57.html, pa
 
 In the examples you can find implementation of lgl, bebot and piecewisebebot.
 
+## Contributors
+- [Wladimir Petrov](https://github.com/wladimirpetrov)
 
