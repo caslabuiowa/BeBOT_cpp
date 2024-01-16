@@ -5,7 +5,7 @@ In the examples you can find implementation of lgl, bebot and piecewisebebot.
 
 ## Contributors
 - [Wladimir Petrov](https://github.com/wladimirpetrov)
-- The BeBOT_cpp library is based on the original library by [Venanzio Cichella](https://github.com/caslabuiowa/BeBOT_MATLAB) and [magicbycalvin](https://github.com/caslabuiowa/BeBOT)
+- The BeBOT_cpp library is based on the original MATLAB library by [Venanzio Cichella](https://github.com/caslabuiowa/BeBOT_MATLAB) and Python library by [magicbycalvin](https://github.com/caslabuiowa/BeBOT)
 
 Ipopt taken from - [coin-or](https://github.com/coin-or)
 
