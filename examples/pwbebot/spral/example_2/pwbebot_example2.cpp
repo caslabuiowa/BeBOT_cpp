@@ -1,5 +1,5 @@
-#include "../../../../Ipopt_pardiso/src/Interfaces/IpIpoptApplication.hpp"
-#include "../../../../Ipopt_pardiso/src/Interfaces/IpTNLP.hpp"
+#include "../../../../Ipopt_spral_solver/src/Interfaces/IpIpoptApplication.hpp"
+#include "../../../../Ipopt_spral_solver/src/Interfaces/IpTNLP.hpp"
 #include <cmath>
 #include <iostream>
 #include <fstream>
