@@ -1,0 +1,16 @@
+prefix=/usr/local
+#prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/coin-or
+
+Name: IPOPT-AMPL
+Description: Ampl Interface TNLP to Ipopt
+URL: https://github.com/coin-or/Ipopt
+Version: 3.14.14
+Cflags: -I${includedir}
+Libs: -L${libdir} -lipoptamplinterface
+Requires: ipopt
+Requires.private: 
+#Libs: -L${libdir} -lipoptamplinterface 
+#Requires: ipopt 

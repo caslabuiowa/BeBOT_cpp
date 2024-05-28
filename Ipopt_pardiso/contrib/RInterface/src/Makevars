@@ -1,0 +1,37 @@
+# Copyright (C) 2010 Jelmer Ypma. All Rights Reserved.
+# This code is published under the Eclipse Public License.
+#
+# File:   Makevars.in
+# Author: Jelmer Ypma
+# Date:   14 April 2010
+#
+# Changelog:
+# 30/01/2011 - Changed LIBS to IPOPT_LIBS and INCL to IPOPT_INCL, since R re-defines LIBS and INCL.
+
+
+# C++ Compiler command
+CXX = g++
+
+# C++ Compiler options
+IPOPT_CXXFLAGS = -O2 -DNDEBUG 
+
+# additional C++ Compiler options for linking
+IPOPT_CXXLINKFLAGS =  -Wl,--rpath -Wl,/usr/local/lib
+
+prefix=/usr/local
+exec_prefix=${prefix}
+
+# Include directories
+IPOPT_INCL = `PKG_CONFIG_PATH=/usr/local/lib/pkgconfig: pkg-config --cflags ipopt`
+#IPOPT_INCL = -I${prefix}/include/coin -I/usr/local/include/coin-or/hsl -I/usr/local/include/coin-or/mumps    -DIPOPTLIB_BUILD
+
+# Linker flags
+IPOPT_LIBS = `PKG_CONFIG_PATH=/usr/local/lib/pkgconfig: pkg-config --libs ipopt`
+#IPOPT_LIBS = -L${exec_prefix}/lib -lipopt -L/usr/local/lib -lcoinhsl -lcoinmumps -llapack -lblas    -lm  -ldl
+
+# Define objects for R to build
+OBJECTS = ipoptr.o IpoptRNLP.o IpoptRJournal.o
+
+# Convert to R macros
+PKG_LIBS = ${IPOPT_CXXLINKFLAGS} ${IPOPT_LIBS}
+PKG_CXXFLAGS = ${IPOPT_CXXFLAGS} ${IPOPT_INCL} -I.
