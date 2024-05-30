@@ -1,5 +1,5 @@
-#include "../../../../Ipopt_ma57_solver/src/Interfaces/IpIpoptApplication.hpp"
-#include "../../../../Ipopt_ma57_solver/src/Interfaces/IpTNLP.hpp"
+#include "../../../../../ipopt/src/Interfaces/IpIpoptApplication.hpp"
+#include "../../../../../ipopt/src/Interfaces/IpTNLP.hpp"
 #include <cmath>
 #include <iostream>
 #include <fstream>
@@ -72,9 +72,6 @@ public:
             if (i == 0 || i == N_) {
                 g_l[i] = 0;
                 g_u[i] = 0;
-                //std::cout << "g[" << i << "] = " << g[i] << std::endl;
-            } else if (i >= 1 && i < N_ + 1) {
-                g_l[i] = -std::numeric_limits<double>::infinity();
                 g_u[i] = std::numeric_limits<double>::infinity();
                 //std::cout << "g_l[" << i << "] = " << g_l[i] << std::endl;
                 //std::cout << "g_u[" << i << "] = " << g_u[i] << std::endl;

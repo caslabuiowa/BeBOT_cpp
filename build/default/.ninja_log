@@ -1,0 +1,21 @@
+# ninja log v5
+2	25	1717010113591941825	CMakeFiles/BeBOT_cpp.dir/bebot/nchoosek_mod.cpp.o	42d06449148a3269
+1	218	1717010113787942379	CMakeFiles/BeBOT_cpp.dir/bebot/degelevmatrix.cpp.o	b8ab0920cba338a
+1	557	1717010114127943341	CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinpoly.cpp.o	fbcdf3ea43ac47cb
+1	583	1717010114151943409	CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinmatrix_a2b.cpp.o	2630369f01bf4e38
+2	29	1717010589485503058	CMakeFiles/BeBOT_cpp.dir/bebot/nchoosek_mod.cpp.o	c663cb29651420f1
+2	194	1717010589649503651	CMakeFiles/BeBOT_cpp.dir/bebot/degelevmatrix.cpp.o	440206e6fa9b5e98
+1	560	1717010590017504980	CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinpoly.cpp.o	7194d1c274180799
+2	819	1717010590273505905	CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinmatrix_a2b.cpp.o	6e4e08b0dfd8ba5f
+2	1210	1717010590665507322	CMakeFiles/BeBOT_cpp.dir/bebot/bernsteindifferentialmatrix.cpp.o	d6183c1d9d460cc3
+1	1303	1717010590757507654	CMakeFiles/BeBOT_cpp.dir/bebot/bebot.cpp.o	c48af6ba82b953ec
+0	1677	1717010685969855948	CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/bebot_example2.cpp.o	156adce0eb8314af
+0	2	0	clean	d77d1e496e121124
+2	21	1717010960742898829	CMakeFiles/BeBOT_cpp.dir/bebot/nchoosek_mod.cpp.o	c663cb29651420f1
+2	192	1717010960914899495	CMakeFiles/BeBOT_cpp.dir/bebot/degelevmatrix.cpp.o	440206e6fa9b5e98
+1	523	1717010961246900781	CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinpoly.cpp.o	7194d1c274180799
+2	618	1717010961342901154	CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinmatrix_a2b.cpp.o	6e4e08b0dfd8ba5f
+2	1065	1717010961786902875	CMakeFiles/BeBOT_cpp.dir/bebot/bernsteindifferentialmatrix.cpp.o	d6183c1d9d460cc3
+1	1141	1717010961862903169	CMakeFiles/BeBOT_cpp.dir/bebot/bebot.cpp.o	c48af6ba82b953ec
+1	1740	1717011109343479593	CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/bebot_example2.cpp.o	156adce0eb8314af
+1	324	1717011797802247810	../../test_bebot	99084750ff46a9b

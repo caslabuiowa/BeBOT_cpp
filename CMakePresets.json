@@ -1,0 +1,18 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+      "major": 3,
+      "minor": 16,
+      "patch": 0
+    },
+    "configurePresets": [
+      {
+        "name": "default",
+        "generator": "Ninja",
+        "binaryDir": "${sourceDir}/build/default",
+        "cacheVariables": {
+          "CMAKE_BUILD_TYPE": "Debug"
+        }
+      }
+    ]
+  }
