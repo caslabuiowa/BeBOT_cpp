@@ -241,8 +241,8 @@ build ContinuousSubmit: phony CMakeFiles/ContinuousSubmit
 
 build cmake_object_order_depends_target_BeBOT_cpp: phony || CMakeFiles/BeBOT_cpp.dir
 
-build CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/bebot_example2.cpp.o: CXX_COMPILER__BeBOT_cpp ../../examples/bebot/ma_57/example_2/bebot_example2.cpp || cmake_object_order_depends_target_BeBOT_cpp
-  DEP_FILE = CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/bebot_example2.cpp.o.d
+build CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/libbebot_caller.cpp.o: CXX_COMPILER__BeBOT_cpp ../../examples/bebot/ma_57/example_2/libbebot_caller.cpp || cmake_object_order_depends_target_BeBOT_cpp
+  DEP_FILE = CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/libbebot_caller.cpp.o.d
   FLAGS = -g   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/home/camilla/anaconda3/include
   OBJECT_DIR = CMakeFiles/BeBOT_cpp.dir
@@ -298,9 +298,10 @@ build CMakeFiles/BeBOT_cpp.dir/bebot/nchoosek_mod.cpp.o: CXX_COMPILER__BeBOT_cpp
 #############################################
 # Link the executable ../../test_bebot
 
-build ../../test_bebot: CXX_EXECUTABLE_LINKER__BeBOT_cpp CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/bebot_example2.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/bebot.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinpoly.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/degelevmatrix.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinmatrix_a2b.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/bernsteindifferentialmatrix.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/nchoosek_mod.cpp.o | /home/camilla/anaconda3/lib/libmkl_intel_lp64.so /home/camilla/anaconda3/lib/libmkl_sequential.so /home/camilla/anaconda3/lib/libmkl_core.so /home/camilla/dev_cpp/ipopt/lib/libipopt.so /home/camilla/dev_cpp/ipopt/lib/libsipopt.so /home/camilla/dev_cpp/ipopt/lib/libipoptamplinterface.so
+build ../../test_bebot: CXX_EXECUTABLE_LINKER__BeBOT_cpp CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/libbebot_caller.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/bebot.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinpoly.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/degelevmatrix.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/bernsteinmatrix_a2b.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/bernsteindifferentialmatrix.cpp.o CMakeFiles/BeBOT_cpp.dir/bebot/nchoosek_mod.cpp.o | /home/camilla/anaconda3/lib/libmkl_intel_lp64.so /home/camilla/anaconda3/lib/libmkl_intel_lp64.so.2 /home/camilla/anaconda3/lib/libmkl_sequential.so /home/camilla/anaconda3/lib/libmkl_core.so /home/camilla/dev_cpp/ipopt/lib/libipopt.so /home/camilla/dev_cpp/ipopt/lib/libsipopt.so /home/camilla/dev_cpp/ipopt/lib/libipoptamplinterface.so /usr/local/lib/libhsl.so ../../examples/bebot/ma_57/example_2/libbebot.so
   FLAGS = -g
-  LINK_LIBRARIES = -Wl,-rpath,/home/camilla/anaconda3/lib:/home/camilla/dev_cpp/ipopt/lib  /home/camilla/anaconda3/lib/libmkl_intel_lp64.so  /home/camilla/anaconda3/lib/libmkl_sequential.so  /home/camilla/anaconda3/lib/libmkl_core.so  /home/camilla/dev_cpp/ipopt/lib/libipopt.so  /home/camilla/dev_cpp/ipopt/lib/libsipopt.so  /home/camilla/dev_cpp/ipopt/lib/libipoptamplinterface.so
+  LINK_LIBRARIES = -Wl,-rpath,/home/camilla/anaconda3/lib:/home/camilla/dev_cpp/ipopt/lib:/usr/local/lib:/home/camilla/dev_cpp/BeBOT_cpp/examples/bebot/ma_57/example_2  /home/camilla/anaconda3/lib/libmkl_intel_lp64.so  /home/camilla/anaconda3/lib/libmkl_intel_lp64.so.2  /home/camilla/anaconda3/lib/libmkl_sequential.so  /home/camilla/anaconda3/lib/libmkl_core.so  /home/camilla/dev_cpp/ipopt/lib/libipopt.so  /home/camilla/dev_cpp/ipopt/lib/libsipopt.so  /home/camilla/dev_cpp/ipopt/lib/libipoptamplinterface.so  /usr/local/lib/libhsl.so  -ldl  -lpthread  -lbebot
+  LINK_PATH = -L/home/camilla/dev_cpp/BeBOT_cpp/examples/bebot/ma_57/example_2
   OBJECT_DIR = CMakeFiles/BeBOT_cpp.dir
   POST_BUILD = :
   PRE_LINK = :

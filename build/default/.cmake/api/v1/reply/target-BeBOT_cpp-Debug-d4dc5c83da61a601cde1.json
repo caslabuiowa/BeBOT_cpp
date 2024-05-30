@@ -94,11 +94,19 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/home/camilla/anaconda3/lib:/home/camilla/dev_cpp/ipopt/lib",
+				"fragment" : "-L/home/camilla/dev_cpp/BeBOT_cpp/examples/bebot/ma_57/example_2",
+				"role" : "libraryPath"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/camilla/anaconda3/lib:/home/camilla/dev_cpp/ipopt/lib:/usr/local/lib:/home/camilla/dev_cpp/BeBOT_cpp/examples/bebot/ma_57/example_2",
 				"role" : "libraries"
 			},
 			{
 				"fragment" : "/home/camilla/anaconda3/lib/libmkl_intel_lp64.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/camilla/anaconda3/lib/libmkl_intel_lp64.so.2",
 				"role" : "libraries"
 			},
 			{
@@ -119,6 +127,22 @@
 			},
 			{
 				"fragment" : "/home/camilla/dev_cpp/ipopt/lib/libipoptamplinterface.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/local/lib/libhsl.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lbebot",
 				"role" : "libraries"
 			}
 		],
@@ -152,7 +176,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "examples/bebot/ma_57/example_2/bebot_example2.cpp",
+			"path" : "examples/bebot/ma_57/example_2/libbebot_caller.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

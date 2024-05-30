@@ -1382,6 +1382,30 @@
 			"value" : "/usr/bin/hg"
 		},
 		{
+			"name" : "HSL_LIBRARIES",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/local/lib/libhsl.so"
+		},
+		{
+			"name" : "HSL_LIBRARY",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/local/lib/libhsl.so"
+		},
+		{
 			"name" : "MAKECOMMAND",
 			"properties" : 
 			[

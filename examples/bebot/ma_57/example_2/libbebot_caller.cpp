@@ -18,7 +18,7 @@ void* load_symbol(void* handle, const char* symbol_name) {
 
 int main() {
     // Load the shared library
-    void* handle = dlopen("./libbebot.so", RTLD_LAZY);
+    void* handle = dlopen("/home/camilla/dev_cpp/BeBOT_cpp/examples/bebot/ma_57/example_2/libbebot.so", RTLD_LAZY);
     if (!handle) {
         std::cerr << "Cannot open library: " << dlerror() << std::endl;
         return 1;
@@ -77,8 +77,8 @@ int main() {
     std::cout << "Final Objective Value: " << final_obj_value << std::endl;
 
     // Clean up
-    destroy_problem(problem);
-    dlclose(handle);
+    //destroy_problem(problem);
+    //dlclose(handle);
 
     return 0;
 }

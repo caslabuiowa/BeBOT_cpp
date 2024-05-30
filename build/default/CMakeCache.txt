@@ -261,6 +261,12 @@ GITCOMMAND:FILEPATH=/usr/bin/git
 //Path to a program.
 HGCOMMAND:FILEPATH=/usr/bin/hg
 
+//Path to a library.
+HSL_LIBRARIES:FILEPATH=/usr/local/lib/libhsl.so
+
+//Path to a library.
+HSL_LIBRARY:FILEPATH=/usr/local/lib/libhsl.so
+
 //Command to build the project
 MAKECOMMAND:STRING=/usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 
