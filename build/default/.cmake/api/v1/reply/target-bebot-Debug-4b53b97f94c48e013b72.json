@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/camilla/dev_cpp/BeBOT_cpp/test_bebot"
+			"path" : "/home/camilla/dev_cpp/BeBOT_cpp/examples/bebot/ma_57/example_2/libbebot.so"
 		}
 	],
 	"backtrace" : 1,
@@ -10,7 +10,7 @@
 	{
 		"commands" : 
 		[
-			"add_executable",
+			"add_library",
 			"include_directories"
 		],
 		"files" : 
@@ -25,7 +25,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 24,
+				"line" : 25,
 				"parent" : 0
 			},
 			{
@@ -42,10 +42,13 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g  "
-				},
+					"fragment" : "-g -fPIC  "
+				}
+			],
+			"defines" : 
+			[
 				{
-					"fragment" : "-std=gnu++17"
+					"define" : "bebot_EXPORTS"
 				}
 			],
 			"includes" : 
@@ -64,7 +67,7 @@
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/home/camilla/anaconda3/include"
+					"path" : "/opt/intel/oneapi/mkl/latest/include"
 				}
 			],
 			"language" : "CXX",
@@ -80,41 +83,49 @@
 			]
 		}
 	],
-	"id" : "BeBOT_cpp::@6890427a1f51a3e7e1df",
+	"id" : "bebot::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
-				"role" : "flags"
-			},
-			{
 				"fragment" : "",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "-L/home/camilla/dev_cpp/BeBOT_cpp/examples/bebot/ma_57/example_2",
-				"role" : "libraryPath"
-			},
-			{
-				"fragment" : "-Wl,-rpath,/home/camilla/anaconda3/lib:/home/camilla/dev_cpp/ipopt/lib:/usr/local/lib:/home/camilla/dev_cpp/BeBOT_cpp/examples/bebot/ma_57/example_2",
+				"fragment" : "-Wl,-rpath,/opt/intel/oneapi/mkl/latest/lib:/opt/intel/oneapi/2024.1/lib:/home/camilla/dev_cpp/ipopt/lib:/usr/local/lib",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "/home/camilla/anaconda3/lib/libmkl_intel_lp64.so",
+				"fragment" : "/opt/intel/oneapi/mkl/latest/lib/libmkl_intel_lp64.so",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "/home/camilla/anaconda3/lib/libmkl_intel_lp64.so.2",
+				"fragment" : "/opt/intel/oneapi/mkl/latest/lib/libmkl_sequential.so",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "/home/camilla/anaconda3/lib/libmkl_sequential.so",
+				"fragment" : "/opt/intel/oneapi/mkl/latest/lib/libmkl_core.so",
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "/home/camilla/anaconda3/lib/libmkl_core.so",
+				"fragment" : "/opt/intel/oneapi/mkl/latest/lib/libmkl_intel_thread.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/intel/oneapi/mkl/latest/lib/libmkl_rt.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/intel/oneapi/mkl/latest/lib/libmkl_avx2.so.2",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/intel/oneapi/mkl/latest/lib/libmkl_def.so.2",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/opt/intel/oneapi/2024.1/lib/libiomp5.so",
 				"role" : "libraries"
 			},
 			{
@@ -134,22 +145,14 @@
 				"role" : "libraries"
 			},
 			{
-				"fragment" : "-ldl",
-				"role" : "libraries"
-			},
-			{
 				"fragment" : "-lpthread",
-				"role" : "libraries"
-			},
-			{
-				"fragment" : "-lbebot",
 				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "BeBOT_cpp",
-	"nameOnDisk" : "test_bebot",
+	"name" : "bebot",
+	"nameOnDisk" : "libbebot.so",
 	"paths" : 
 	{
 		"build" : ".",
@@ -173,12 +176,6 @@
 	],
 	"sources" : 
 	[
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "examples/bebot/ma_57/example_2/libbebot_caller.cpp",
-			"sourceGroupIndex" : 0
-		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
@@ -214,7 +211,13 @@
 			"compileGroupIndex" : 0,
 			"path" : "bebot/nchoosek_mod.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "examples/bebot/ma_57/example_2/libbebot.cpp",
+			"sourceGroupIndex" : 0
 		}
 	],
-	"type" : "EXECUTABLE"
+	"type" : "SHARED_LIBRARY"
 }

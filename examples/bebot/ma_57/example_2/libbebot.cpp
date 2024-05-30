@@ -7,7 +7,7 @@
 #include "../../../../include/bebot.h"
 #include "../../../../include/bernsteinpoly.h"
 #include <iomanip>
-#include "mkl.h"
+#include "/opt/intel/oneapi/mkl/latest/include/mkl.h"
 
 using namespace Ipopt;
 
@@ -35,8 +35,14 @@ public:
     }
 
     virtual bool get_nlp_info(Index& n, Index& m, Index& nnz_jac_g, Index& nnz_h_lag, IndexStyleEnum& index_style) {
-        n = N_ + 2; 
-        m = 2 * (N_ + 1);
+        // Method to allocate the size of the problem 
+        // n: number of optimization variables x
+        // m: number of constraints g(x)
+        // nnz_jac_g: size of nonzero entries of the Jacobian
+        // nnz_h_lag: size of nonzero entries of the Hessian
+        // index_style: 0-based (C_STYLE) or 1-based (FORTRAN_STYLE)
+        n = N_ + 2; // p + t_f
+        m = 2 * (N_ + 1); // v + u
         nnz_jac_g = n * m;  
         nnz_h_lag = 0; 
         index_style = TNLP::C_STYLE;
@@ -44,26 +50,34 @@ public:
     }
 
     virtual bool get_bounds_info(Index n, Number* x_l, Number* x_u, Index m, Number* g_l, Number* g_u) {
+        // Method to define the boundary of the variables and constraints
         for (int i = 0; i < N_ + 2; i++) {
             x_l[i] = -std::numeric_limits<double>::infinity();
             x_u[i] = std::numeric_limits<double>::infinity();
         }
 
+        // p(0) = p0
         x_l[0] = x10_;
         x_u[0] = x10_;
+        // p(f) = pf
         x_l[(N_ + 2) - 2] = x1f_;
         x_u[(N_ + 2) - 2] = x1f_;
+        // 0 <= t <= infinity
         x_l[(N_ + 2) - 1] = 0;
         x_u[(N_ + 2) - 1] = std::numeric_limits<double>::infinity();
 
+
         for (int i = 0; i < 2 * (N_ + 1); i++) {
-            if (i == 0 || i == N_) {
-                g_l[i] = 0;
-                g_u[i] = 0;
+            if (i == 0) { // x2(0) = v0
+                g_l[i] = x20_;
+                g_u[i] = x20_;
+            } else if (i == N_) { // x2(tf) = vf
+                g_l[i] = x2f_;
+                g_u[i] = x2f_;
             } else if (i >= 1 && i < N_ + 1) {
                 g_l[i] = -std::numeric_limits<double>::infinity();
                 g_u[i] = std::numeric_limits<double>::infinity();
-            } else {
+            } else { // a_min <= u <= a_max
                 g_l[i] = amin_;
                 g_u[i] = amax_;
             }
@@ -73,20 +87,23 @@ public:
     }
 
     virtual bool get_starting_point(Index n, bool init_x, Number* x, bool init_z, Number* z_L, Number* z_U, Index m, bool init_lambda, Number* lambda) {
+        // Build the initial guess
         for (int i = 0; i < N_ + 2; i++) {
-            x[0] = 1;
-            x[i] = 1;
-            x[(N_ + 2) - 1] = 10;
+            x[i] = 1; // p(t)
+            x[(N_ + 2) - 1] = 10; //tf
         }
         return true;
     }
 
     virtual bool eval_f(Index n, const Number* x, bool new_x, Number& obj_value) {
+        // Evaluate objective function
         obj_value = x[(N_ + 2) - 1];
         return true;
     }
 
     virtual bool eval_g(Index n, const Number* x, bool new_x, Index m, Number* g) {
+        // Evaluate constraints
+        // x2 = x1_dot = x1 * Dm
         Bebot Bebot(N_, x[(N_ + 2) - 1]);
         Bebot.calculate();
         const auto& Dm = Bebot.getDifferentiationMatrix();
@@ -100,6 +117,7 @@ public:
             g[i] = result_flat[i];
         }
 
+        // u = x2_dot = x2* Dm
         double* result_g2_flat = new double[N_mkl];
         cblas_dgemv(CblasColMajor, CblasTrans, N_mkl, N_mkl, 1.0, Dm.data(), N_mkl, result_flat, 1, 0.0, result_g2_flat, 1);
 
@@ -114,6 +132,7 @@ public:
     }
 
     virtual bool eval_jac_g(Index n, const Number* x, bool new_x, Index m, Index nele_jac, Index* iRow, Index* jCol, Number* values) {
+        // Evaluate Jacobian of constraints
         if (values == NULL) {
             for (Index i = 0; i < m; i++) {
                 for (Index j = 0; j < n; j++) {
@@ -126,6 +145,7 @@ public:
     }
 
     virtual bool eval_grad_f(Index n, const Number* x, bool new_x, Number* grad_f) {
+        // Evaluate Jacobian of cost
         return true;
     }
 
@@ -140,14 +160,32 @@ public:
         const Number* lambda,
         Number obj_value,
         const IpoptData* ip_data,
-        IpoptCalculatedQuantities* ip_cq
-    ) { 
+        IpoptCalculatedQuantities* ip_cq) { 
+        // Extract solution
+        // x = optimal solution
+        // obj_fun = optimal cost
+
+
+        // Control points
         solution_x_.resize(n - 1);
-        for (Index i = 0; i < n - 1; ++i) {
+        for (Index i = 0; i < n; ++i) {
             solution_x_[i] = x[i];
         }
         final_obj_value_ = obj_value;
-        
+
+        // Print the solution
+        std::cout << "Optimal Solution: ";
+        for (int i = 0; i < n - 1; ++i) {
+            std::cout << x[i] << " ";
+        }
+        std::cout << std::endl;
+
+        // Retrieve the final objective value
+        std::cout << "Final Objective Value: " << obj_value << std::endl;
+
+
+
+        // Tf
         tf_ = x[(N_ + 2) - 1];
         bebot_ = Bebot(N_, tf_);
         bebot_.calculate();
@@ -166,13 +204,6 @@ public:
         }
         writeToCSV(final_time_, flattened_result, "x.csv");
         writeToCSV(bebot_.getNodes(), solution_x_, "x_controlpoints.csv");
-
-        // Print the solution_x_ values
-        //std::cout << "solution_x_ values after saving to CSV:" << std::endl;
-        //for (const auto& value : solution_x_) {
-        //    std::cout << value << " ";
-        //}
-        //std::cout << std::endl;
 
         solution_x2_.resize(n - 1);
         for (Index i = 0; i < n - 1; ++i) {

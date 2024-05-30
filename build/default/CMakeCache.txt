@@ -279,6 +279,21 @@ MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 //Path to a program.
 P4COMMAND:FILEPATH=P4COMMAND-NOTFOUND
 
+//Path to a file.
+PYTHON_INCLUDE_DIR:PATH=/usr/include/python3.8
+
+//Path to a library.
+PYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.8.so
+
+//Path to a library.
+PYTHON_LIBRARY_DEBUG:FILEPATH=PYTHON_LIBRARY_DEBUG-NOTFOUND
+
+//Path to a library.
+Python3_LIBRARY_DEBUG:FILEPATH=
+
+//Path to a library.
+Python3_LIBRARY_RELEASE:FILEPATH=/home/camilla/anaconda3/lib/libpython3.7m.so
+
 //Name of the computer/site where compile is being run
 SITE:STRING=CASLabLinux
 
@@ -290,6 +305,15 @@ SLURM_SRUN_COMMAND:FILEPATH=SLURM_SRUN_COMMAND-NOTFOUND
 
 //Path to a program.
 SVNCOMMAND:FILEPATH=/usr/bin/svn
+
+//Path to a program.
+_Python3_EXECUTABLE:FILEPATH=/home/camilla/anaconda3/bin/python3.7
+
+//Path to a file.
+_Python3_INCLUDE_DIR:PATH=/home/camilla/anaconda3/include/python3.7m
+
+//Path to a file.
+_Python3_NumPy_INCLUDE_DIR:PATH=_Python3_NumPy_INCLUDE_DIR-NOTFOUND
 
 
 ########################
@@ -455,6 +479,10 @@ CVSCOMMAND-ADVANCED:INTERNAL=1
 CVS_UPDATE_OPTIONS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: DART_TESTING_TIMEOUT
 DART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1
+//Details about finding Python3
+FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/home/camilla/anaconda3/lib/libpython3.7m.so][/home/camilla/anaconda3/include/python3.7m][cfound components: Development ][v3.7()]
+//Details about finding PythonLibs
+FIND_PACKAGE_MESSAGE_DETAILS_PythonLibs:INTERNAL=[/usr/lib/x86_64-linux-gnu/libpython3.8.so][/usr/include/python3.8][v3.8.10(3)]
 //ADVANCED property for variable: GITCOMMAND
 GITCOMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: HGCOMMAND
@@ -467,6 +495,16 @@ MEMORYCHECK_COMMAND-ADVANCED:INTERNAL=1
 MEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: P4COMMAND
 P4COMMAND-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_INCLUDE_DIR
+PYTHON_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_LIBRARY
+PYTHON_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_LIBRARY_DEBUG
+PYTHON_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Python3_LIBRARY_DEBUG
+Python3_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Python3_LIBRARY_RELEASE
+Python3_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SITE
 SITE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SLURM_SBATCH_COMMAND
@@ -475,4 +513,13 @@ SLURM_SBATCH_COMMAND-ADVANCED:INTERNAL=1
 SLURM_SRUN_COMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SVNCOMMAND
 SVNCOMMAND-ADVANCED:INTERNAL=1
+_Python3_DEVELOPMENT_SIGNATURE:INTERNAL=d8ad55a934b42ea96a3ae8862b0a2845
+//ADVANCED property for variable: _Python3_EXECUTABLE
+_Python3_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: _Python3_INCLUDE_DIR
+_Python3_INCLUDE_DIR-ADVANCED:INTERNAL=1
+_Python3_INTERPRETER_SIGNATURE:INTERNAL=3d445c814c3257eec5739482d499aab2
+_Python3_LIBRARY_RELEASE:INTERNAL=/home/camilla/anaconda3/lib/libpython3.7m.so
+//ADVANCED property for variable: _Python3_NumPy_INCLUDE_DIR
+_Python3_NumPy_INCLUDE_DIR-ADVANCED:INTERNAL=1
 

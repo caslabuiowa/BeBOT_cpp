@@ -37,7 +37,7 @@ int main() {
     }
 
     // Create the problem
-    int N = 5;
+    int N = 7;
     double tf = 10.0;
     double amax = 5.0;
     double amin = -5.0;
@@ -65,16 +65,8 @@ int main() {
     double solution[N + 2];
     get_solution(problem, solution, N + 2);
 
-    // Print the solution
-    std::cout << "Optimal Solution: ";
-    for (int i = 0; i < N + 2; ++i) {
-        std::cout << solution[i] << " ";
-    }
-    std::cout << std::endl;
+    // Plotting
 
-    // Retrieve the final objective value
-    double final_obj_value = get_final_objective_value(problem);
-    std::cout << "Final Objective Value: " << final_obj_value << std::endl;
 
     // Clean up
     //destroy_problem(problem);

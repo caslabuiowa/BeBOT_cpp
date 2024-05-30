@@ -42,7 +42,8 @@
 						25,
 						26,
 						27,
-						28
+						28,
+						29
 					]
 				}
 			],
@@ -85,7 +86,8 @@
 						25,
 						26,
 						27,
-						28
+						28,
+						29
 					]
 				}
 			],
@@ -94,7 +96,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "BeBOT_cpp::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-BeBOT_cpp-Debug-d4dc5c83da61a601cde1.json",
+					"jsonFile" : "target-BeBOT_cpp-Debug-96a00f0c6373fe52a878.json",
 					"name" : "BeBOT_cpp",
 					"projectIndex" : 0
 				},
@@ -292,6 +294,13 @@
 					"id" : "NightlyUpdate::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-NightlyUpdate-Debug-abdbe57aa7406202f09a.json",
 					"name" : "NightlyUpdate",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "bebot::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bebot-Debug-4b53b97f94c48e013b72.json",
+					"name" : "bebot",
 					"projectIndex" : 0
 				}
 			]

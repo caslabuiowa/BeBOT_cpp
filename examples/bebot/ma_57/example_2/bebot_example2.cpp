@@ -7,13 +7,15 @@
 #include "../../../../include/bebot.h"
 #include "../../../../include/bernsteinpoly.h"
 #include <iomanip>
-#include "mkl.h"
+#include "/home/camilla/anaconda3/include/mkl.h"
 
 using namespace Ipopt;
 
+// Implementation of a double integrator dynamics
+
 class PointSetProblem : public Ipopt::TNLP {
 public:
-    PointSetProblem(int N, double tf, double amax, double amin, double x10, double x1f, double x20, double x2f)
+    PointSetProblem(int N, double tf, double amax, double amin, double p0, double pf, double v0, double vf)
         : N_(N), tf_(tf), amax_(amax), amin_(amin), x10_(x10), x1f_(x1f), x20_(x20), x2f_(x2f), bebot_(N, tf_) {
         bebot_.calculate();
     }
@@ -36,8 +38,13 @@ public:
     }
 
     virtual bool get_nlp_info(Index& n, Index& m, Index& nnz_jac_g, Index& nnz_h_lag, IndexStyleEnum& index_style) {
-        // Define the number of variables, constraints, and Jacobian/Hessian non-zero elements.
-        n = N_ + 2; 
+        // Method to allocate the size of the problem 
+        // n: number of optimization variables x
+        // m: number of constraints g(x)
+        // nnz_jac_g: size of nonzero entries of the Jacobian
+        // nnz_h_lag: size of nonzero entries of the Hessian
+        // index_style: 0-based (C_STYLE) or 1-based (FORTRAN_STYLE)
+        n = N_ + 2; // p + t_f
         m = 2 * (N_ + 1);
         nnz_jac_g = n*m;  
         nnz_h_lag = 0; 
@@ -46,229 +53,98 @@ public:
     }
 
     virtual bool get_bounds_info(Index n, Number* x_l, Number* x_u, Index m, Number* g_l, Number* g_u) {
-        // Define variable and constraint bounds
+        // Method to define the boundary of the variables and constraints
         for (int i = 0; i < N_+ 2; i++) {
             x_l[i] = -std::numeric_limits<double>::infinity();
             x_u[i] = std::numeric_limits<double>::infinity();
-            //std::cout << "x_l[" << i << "] = " << x_l[i] << std::endl;
-            //std::cout << "x_u[" << i << "] = " << x_u[i] << std::endl;
         }
-
+        // p(0) = p0
         x_l[0] = x10_;
         x_u[0] = x10_;
+        // p(tf) = pf
         x_l[(N_ + 2) - 2] = x1f_;
         x_u[(N_ + 2) - 2] = x1f_;
+        // 0 < t < infinity
         x_l[(N_ + 2) - 1] = 0;
-        x_u[(N_ + 2) - 1] = std::numeric_limits<double>::infinity();//std::numeric_limits<double>::infinity();;
-
-        //std::cout << "x_l[" << 0 << "] = " << x_l[0] << std::endl;
-        //std::cout << "x_u[" << 0 << "] = " << x_u[0] << std::endl;
-        //std::cout << "x_l[" << (N_ + 2) - 2 << "] = " << x_l[(N_ + 2) - 2] << std::endl;
-        //std::cout << "x_u[" << (N_ + 2) - 2 << "] = " << x_u[(N_ + 2) - 2] << std::endl;
-        //std::cout << "x_l[" << (N_ + 2) - 1 << "] = " << x_l[(N_ + 2) - 1] << std::endl;
-        //std::cout << "x_u[" << (N_ + 2) - 1 << "] = " << x_u[(N_ + 2) - 1] << std::endl;
+        x_u[(N_ + 2) - 1] = std::numeric_limits<double>::infinity();
 
         for (int i = 0; i < 2 * (N_ + 1); i++) {
             if (i == 0 || i == N_) {
                 g_l[i] = 0;
                 g_u[i] = 0;
+            } else if (i >= 1 && i < N_ + 1) {
+                g_l[i] = -std::numeric_limits<double>::infinity();
                 g_u[i] = std::numeric_limits<double>::infinity();
-                //std::cout << "g_l[" << i << "] = " << g_l[i] << std::endl;
-                //std::cout << "g_u[" << i << "] = " << g_u[i] << std::endl;
             } else {
                 g_l[i] = amin_;
                 g_u[i] = amax_;
-                //std::cout << "g_l[" << i << "] = " << g_l[i] << std::endl;
-                //std::cout << "g_u[" << i << "] = " << g_u[i] << std::endl;
             }
         }
 
-        // Print constraint bounds
-        //for (Index i = 0; i < 2 * (N_ + 1); ++i) {
+        //Print constraint bounds
+        // for (Index i = 0; i < 2 * (N_ + 1); ++i) {
         //    std::cout << "g_l[" << i << "] = " << g_l[i] << ", g_u[" << i << "] = " << g_u[i] << std::endl;
-        //}
+        // }
 
         return true;
     }
 
-    // initialization of the starting point
     virtual bool get_starting_point(Index n, bool init_x, Number* x, bool init_z, Number* z_L, Number* z_U, Index m, bool init_lambda, Number* lambda) {
+        // Build the initial guess
         for (int i = 0; i < N_ + 2; i++) {
-            x[0] = 1;
             x[i] = 1;
             x[(N_+ 2) - 1] = 10;
-            //std::cout << "x[" << i << "] = " << x[i] << std::endl;
-            /*x[0] = -3;
-            x[1] = -1.71;
-            x[2] = 1.82;
-            x[3] = 0.95;
-            x[4] = -0.10;
-            x[5] = 0;
-            x[6] = 10;*/
+            //std::cout << "printin x[" << i << "] = " << x[i] << std::endl;
         }
         return true;
     }
 
     virtual bool eval_f(Index n, const Number* x, bool new_x, Number& obj_value) {
-        // Objective function
+        // Evalute objective function
         obj_value = x[(N_+ 2) - 1];
         //std::cout << "objective value = " << obj_value << std::endl;
         return true;
     }
-    ///*
+
     virtual bool eval_g(Index n, const Number* x, bool new_x, Index m, Number* g) {
-        // Transpose the x vector to create a vertical column vector
-        //std::vector<Number> x_transposed(N_ + 2);
-        //for (Index i = 0; i < N_ + 1; i++) {
-        //    x_transposed[i] = x[i];
-        //    //std::cout << "x_transposed[" << i << "] = " << x_transposed[i] << std::endl;
-        //}
 
-        // Get the differentiation matrix
-        Bebot Bebot(N_, x[(N_+ 2) - 1]);
-        Bebot.calculate();
-        const auto& Dm = Bebot.getDifferentiationMatrix();
-        
-        // Printing Dm matrix
-        //std::cout << "Dm matrix:\n";
-        //for (const auto& row : Dm) {
-        //    for (const auto& element : row) {
-        //        std::cout << element << " ";
-        //    }
-        //    std::cout << std::endl; 
-        //}
-        
-        //std::cout << "N_ = " << N_ << std::endl;
-        //std::cout << "x[" << (N_+ 2) - 1 << "] = " << x[(N_+ 2) - 1] << std::endl;
+            // Get the differentiation matrix
+            Bebot Bebot(N_, x[(N_+ 2) - 1]);
+            Bebot.calculate();
+            const auto& Dm = Bebot.getDifferentiationMatrix();
 
-        // Perform the first operation g1 = (x' * Dm)'
-        std::vector<Number> g1(N_ + 1, 0.0);
-        //for (Index i = 0; i <= N_; i++) {
-        //    for (Index j = 0; j <= N_; j++) {
-                //std::cout << "_____start " << std::endl;
-                //std::cout << "Dm " << Dm[i][j] << std::endl;
-                //std::cout << "_____end " << Dm[i][j] << std::endl;
-                //std::cout << "x[" << j << "] = " << x[j] << std::endl;
-        //        g1[i] += x_transposed[j] * Dm[j][i];
-        //        std::cout << "g1[" << i << "] = " << g[i] << std::endl;
-         //   }
-        //}
+            // Perform the first operation g1 = (x' * Dm)'
+            std::vector<Number> g1(N_ + 1, 0.0);
 
-        ///*
-        // preparing data for MKL in column-major order
-        int N_mkl = N_ + 1; 
-        //double* Dm_flat = new double[N_mkl * N_mkl]; 
-        //double* x_flat = new double[N_mkl]; 
-        double* result_flat = new double[N_mkl]; 
+            // preparing data for MKL in column-major order
+            int N_mkl = N_ + 1; 
+            double* result_flat = new double[N_mkl]; 
+            cblas_dgemv(CblasColMajor, CblasTrans, N_mkl, N_mkl, 1.0, Dm.data(), N_mkl, x, 1, 0.0, result_flat, 1);
 
-        // flattening the Dm matrix to Dm_flat in column-major order
-        //for (int i = 0; i < N_mkl; ++i) {
-        //    for (int j = 0; j < N_mkl; ++j) {
-        //        Dm_flat[j * N_mkl + i] = Dm[i][j];
-        //    }
-        //}
+            // Copy the result back into the std::vector or directly into the target structure
+            for (int i = 0; i < N_mkl; ++i) {
+                g[i] = result_flat[i]; 
+                //std::cout << "g1_mkl[" << i << "] = " << g1[i] << std::endl;
+            }
 
-        
-        //for (int i = 0; i < N_mkl; ++i) {
-        //    x_flat[i] = x[i];
-        //}
+            // Perform the second operation g2 = (g1' * Dm)'
+            std::vector<Number> g2(N_ + 1, 0.0);
+            double* result_g2_flat = new double[N_mkl]; // Allocate flat array for the result of multiplying Dm by g1
+            cblas_dgemv(CblasColMajor, CblasTrans, N_mkl, N_mkl, 1.0, Dm.data(), N_mkl, result_flat, 1, 0.0, result_g2_flat, 1);
 
-        // After flattening Dm matrix to Dm_flat in column-major order
-        //std::cout << "Dm_flat:" << std::endl;
-        //for (int i = 0; i < N_mkl * N_mkl; ++i) {
-        //    if (i % N_mkl == 0 && i != 0) std::cout << std::endl; // New line for each row
-        //    std::cout << Dm_flat[i] << " ";
-        //}
-        //std::cout << std::endl << std::endl; // New line after printing the whole matrix
+            // Transpose g2 to create the final vertical column vector
+            for (Index i = 0; i <= N_; i++) {
+                g[N_ + 1 + i] = result_g2_flat[i];
+                //std::cout << "g[" << N_ + 1 + i << "] = " << g[N_ + 1 + i] << std::endl;
+            }
 
-        // After copying x_transposed vector to x_flat
-        //std::cout << "x_flat:" << std::endl;
-        //for (int i = 0; i < N_mkl; ++i) {
-        //    std::cout << x_flat[i] << " ";
-        //}
-        //std::cout << std::endl << std::endl; // New line after printing the vector
-
-
-       
-        cblas_dgemv(CblasColMajor, CblasTrans, N_mkl, N_mkl, 1.0, Dm.data(), N_mkl, x, 1, 0.0, result_flat, 1);
-
-        // Print the result_flat array
-        //std::cout << "result_flat after MKL multiplication:" << std::endl;
-        //for (int i = 0; i < N_mkl; ++i) {
-        //    std::cout << result_flat[i] << " ";
-        //}
-        //std::cout << std::endl << std::endl; 
-
-        // Copy the result back into the std::vector or directly into the target structure
-        for (int i = 0; i < N_mkl; ++i) {
-            g[i] = result_flat[i]; 
-            //std::cout << "g1_mkl[" << i << "] = " << g1[i] << std::endl;
+            return true;
         }
-
-        // Use g1 for further operations as needed...
-
-        // Cleanup
-        //delete[] Dm_flat;
-        //delete[] x_flat;
-        //delete[] result_flat;
-
-        //return true;
-        //*/
-        // Transpose g1 to create a vertical column vector
-        //for (Index i = 0; i <= N_; i++) {
-        //    g[i] = g1[i];
-            //std::cout << "g[" << i << "] = " << g[i] << std::endl;
-            
-        //}
-
-        // G2
-
-        // Perform the second operation g2 = (g1' * Dm)'
-        std::vector<Number> g2(N_ + 1, 0.0);
-        //for (Index i = 0; i <= N_; i++) {
-        //    for (Index j = 0; j <= N_; j++) {
-        //        g2[i] += g1[j] * Dm[j][i];
-        //    }
-        //}
-
-
-        // Prepare your data for MKL in column-major order again
-        //double* g1_flat = new double[N_mkl]; // Allocate flat array for g1
-        double* result_g2_flat = new double[N_mkl]; // Allocate flat array for the result of multiplying Dm by g1
-
-        // Copy g1 vector to g1_flat
-        //for (int i = 0; i < N_mkl; ++i) {
-        //    g1_flat[i] = g1[i];
-        //}
-
-        // Perform the matrix-vector multiplication using MKL
-        cblas_dgemv(CblasColMajor, CblasTrans, N_mkl, N_mkl, 1.0, Dm.data(), N_mkl, result_flat, 1, 0.0, result_g2_flat, 1);
-
-        // Copy the result back into g2 vector or directly into the target structure
-        //for (int i = 0; i < N_mkl; ++i) {
-        //    g2[i] = result_g2_flat[i];
-            //std::cout << "g2_mkl[" << i << "] = " << g2[i] << std::endl;
-            // Optionally, print g2 values to verify
-            // std::cout << "g2[" << i << "] = " << g2[i] << std::endl;
-        //}
-
-        // Cleanup
-        //delete[] g1_flat;
-        //delete[] result_g2_flat;
-
-        // Transpose g2 to create the final vertical column vector
-        for (Index i = 0; i <= N_; i++) {
-            g[N_ + 1 + i] = result_g2_flat[i];
-            //std::cout << "g[" << N_ + 1 + i << "] = " << g[N_ + 1 + i] << std::endl;
-        }
-
-        return true;
-    }
     
-    // Define the Jacobian of /the constraints
+    
     virtual bool eval_jac_g(Index n, const Number* x, bool new_x, Index m, Index nele_jac, Index* iRow, Index* jCol, Number* values) {
         if (values == NULL) {
-            // Return the structure of the Jacobian by setting iRow and jCol
+            // Define the Jacobian of the constraints
             for (Index i = 0; i < m; i++) {
                 for (Index j = 0; j < n; j++) {
                     iRow[i * n + j] = i;
@@ -285,6 +161,8 @@ public:
     }
 
     // Method to finalize the solution
+    // x is the optimal solution
+    // obj_value is the cost
     virtual void finalize_solution(
         SolverReturn status, 
         Index n,
@@ -296,12 +174,12 @@ public:
         const Number* lambda,
         Number obj_value,
         const IpoptData* ip_data,
-        IpoptCalculatedQuantities* ip_cq
+        IpoptCalculatedQuantities* ip_cq) {
 
-    ) { solution_x_.resize(n-1);
+        solution_x_.resize(n-1);
         for (Index i = 0; i < n-1; ++i) {
             solution_x_[i] = x[i];
-            //std::cout << "solution_x_[" << i << "] = " << solution_x_[i] << std::endl;
+            std::cout << "solution_x_[" << i << "] = " << solution_x_[i] << std::endl;
         }
         final_obj_value_ = obj_value;
         
