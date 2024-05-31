@@ -194,14 +194,17 @@ public:
         for (int i = 0; i < 1000; ++i) {
             final_time_[i] = i * obj_value / 999.0;
         }
+
+        
         
         std::vector<std::vector<double>> solution_x_2d(1, std::vector<double>(solution_x_.begin(), solution_x_.end()));
         bernsteinpoly_result_ = BernsteinPoly(solution_x_2d, final_time_, 0, tf_);
-        
+
         std::vector<double> flattened_result;
         for (const auto& row : bernsteinpoly_result_) {
             flattened_result.insert(flattened_result.end(), row.begin(), row.end());
         }
+
         writeToCSV(final_time_, flattened_result, "x.csv");
         writeToCSV(bebot_.getNodes(), solution_x_, "x_controlpoints.csv");
 

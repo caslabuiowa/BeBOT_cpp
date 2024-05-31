@@ -3,6 +3,16 @@ This repository contains the implementation of the Bernstein/Bezier Optimal Traj
 
 In the examples you can find implementation of lgl, bebot and piecewisebebot.
 
+## Requirements
+To run this examples you must have the following installed:
+- CMake (https://cmake.org/)
+- Ninja (https://ninja-build.org/)
+- Ipopt (https://github.com/coin-or)
+- Intel MKL libraries (https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html)
+- HSL libraries (https://licences.stfc.ac.uk/product/coin-hsl-archive)
+
+We reccomed following the following guide to install Ipopt and its dependencies https://coin-or.github.io/Ipopt/INSTALL.html
+
 ## Contributors
 - [Wladimir Petrov](https://github.com/wladimirpetrov)
 - The BeBOT_cpp library is based on the original MATLAB library by [Venanzio Cichella](https://github.com/caslabuiowa/BeBOT_MATLAB) and Python library by [magicbycalvin](https://github.com/caslabuiowa/BeBOT)

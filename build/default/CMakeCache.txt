@@ -482,7 +482,7 @@ DART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1
 //Details about finding Python3
 FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/home/camilla/anaconda3/lib/libpython3.7m.so][/home/camilla/anaconda3/include/python3.7m][cfound components: Development ][v3.7()]
 //Details about finding PythonLibs
-FIND_PACKAGE_MESSAGE_DETAILS_PythonLibs:INTERNAL=[/usr/lib/x86_64-linux-gnu/libpython3.8.so][/usr/include/python3.8][v3.8.10(3)]
+FIND_PACKAGE_MESSAGE_DETAILS_PythonLibs:INTERNAL=[/usr/lib/x86_64-linux-gnu/libpython3.8.so][/usr/include/python3.8][v3.8.10()]
 //ADVANCED property for variable: GITCOMMAND
 GITCOMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: HGCOMMAND

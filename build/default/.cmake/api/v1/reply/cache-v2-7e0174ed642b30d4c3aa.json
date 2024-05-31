@@ -1371,7 +1371,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/usr/lib/x86_64-linux-gnu/libpython3.8.so][/usr/include/python3.8][v3.8.10(3)]"
+			"value" : "[/usr/lib/x86_64-linux-gnu/libpython3.8.so][/usr/include/python3.8][v3.8.10()]"
 		},
 		{
 			"name" : "GITCOMMAND",

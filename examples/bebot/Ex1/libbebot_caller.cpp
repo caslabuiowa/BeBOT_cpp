@@ -93,9 +93,6 @@ int main() {
     double solution[N + 2];
     get_solution(problem, solution, N + 2);
 
-    // Plotting
-
-
     // Clean up
     dlclose(handle);
 
