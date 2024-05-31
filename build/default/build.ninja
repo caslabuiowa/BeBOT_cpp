@@ -62,12 +62,12 @@ build test: phony CMakeFiles/test.util
 
 build cmake_object_order_depends_target_BeBOT_cpp: phony || CMakeFiles/BeBOT_cpp.dir
 
-build CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/libbebot_caller.cpp.o: CXX_COMPILER__BeBOT_cpp ../../examples/bebot/ma_57/example_2/libbebot_caller.cpp || cmake_object_order_depends_target_BeBOT_cpp
-  DEP_FILE = CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/libbebot_caller.cpp.o.d
+build CMakeFiles/BeBOT_cpp.dir/examples/bebot/Ex1/libbebot_caller.cpp.o: CXX_COMPILER__BeBOT_cpp ../../examples/bebot/Ex1/libbebot_caller.cpp || cmake_object_order_depends_target_BeBOT_cpp
+  DEP_FILE = CMakeFiles/BeBOT_cpp.dir/examples/bebot/Ex1/libbebot_caller.cpp.o.d
   FLAGS = -g   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/BeBOT_cpp.dir
-  OBJECT_FILE_DIR = CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2
+  OBJECT_FILE_DIR = CMakeFiles/BeBOT_cpp.dir/examples/bebot/Ex1
 
 
 # =============================================================================
@@ -75,16 +75,16 @@ build CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/libbebot_caller.cp
 
 
 #############################################
-# Link the executable ../../test_bebot
+# Link the executable ../../examples/bebot/Ex1/bebot_ex1
 
-build ../../test_bebot: CXX_EXECUTABLE_LINKER__BeBOT_cpp CMakeFiles/BeBOT_cpp.dir/examples/bebot/ma_57/example_2/libbebot_caller.cpp.o
+build ../../examples/bebot/Ex1/bebot_ex1: CXX_EXECUTABLE_LINKER__BeBOT_cpp CMakeFiles/BeBOT_cpp.dir/examples/bebot/Ex1/libbebot_caller.cpp.o
   FLAGS = -g
   LINK_LIBRARIES = -ldl
   OBJECT_DIR = CMakeFiles/BeBOT_cpp.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = ../../test_bebot
-  TARGET_PDB = test_bebot.dbg
+  TARGET_FILE = ../../examples/bebot/Ex1/bebot_ex1
+  TARGET_PDB = bebot_ex1.dbg
 
 
 #############################################
@@ -274,61 +274,61 @@ build Continuous: phony CMakeFiles/Continuous
 
 build cmake_object_order_depends_target_bebot: phony || CMakeFiles/bebot.dir
 
-build CMakeFiles/bebot.dir/bebot/bebot.cpp.o: CXX_COMPILER__bebot ../../bebot/bebot.cpp || cmake_object_order_depends_target_bebot
+build CMakeFiles/bebot.dir/src/bebot.cpp.o: CXX_COMPILER__bebot ../../src/bebot.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
-  DEP_FILE = CMakeFiles/bebot.dir/bebot/bebot.cpp.o.d
+  DEP_FILE = CMakeFiles/bebot.dir/src/bebot.cpp.o.d
   FLAGS = -g -fPIC
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
-  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/bebot
+  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
 
-build CMakeFiles/bebot.dir/bebot/bernsteinpoly.cpp.o: CXX_COMPILER__bebot ../../bebot/bernsteinpoly.cpp || cmake_object_order_depends_target_bebot
+build CMakeFiles/bebot.dir/src/bernsteinpoly.cpp.o: CXX_COMPILER__bebot ../../src/bernsteinpoly.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
-  DEP_FILE = CMakeFiles/bebot.dir/bebot/bernsteinpoly.cpp.o.d
+  DEP_FILE = CMakeFiles/bebot.dir/src/bernsteinpoly.cpp.o.d
   FLAGS = -g -fPIC
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
-  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/bebot
+  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
 
-build CMakeFiles/bebot.dir/bebot/degelevmatrix.cpp.o: CXX_COMPILER__bebot ../../bebot/degelevmatrix.cpp || cmake_object_order_depends_target_bebot
+build CMakeFiles/bebot.dir/src/degelevmatrix.cpp.o: CXX_COMPILER__bebot ../../src/degelevmatrix.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
-  DEP_FILE = CMakeFiles/bebot.dir/bebot/degelevmatrix.cpp.o.d
+  DEP_FILE = CMakeFiles/bebot.dir/src/degelevmatrix.cpp.o.d
   FLAGS = -g -fPIC
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
-  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/bebot
+  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
 
-build CMakeFiles/bebot.dir/bebot/bernsteinmatrix_a2b.cpp.o: CXX_COMPILER__bebot ../../bebot/bernsteinmatrix_a2b.cpp || cmake_object_order_depends_target_bebot
+build CMakeFiles/bebot.dir/src/bernsteinmatrix_a2b.cpp.o: CXX_COMPILER__bebot ../../src/bernsteinmatrix_a2b.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
-  DEP_FILE = CMakeFiles/bebot.dir/bebot/bernsteinmatrix_a2b.cpp.o.d
+  DEP_FILE = CMakeFiles/bebot.dir/src/bernsteinmatrix_a2b.cpp.o.d
   FLAGS = -g -fPIC
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
-  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/bebot
+  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
 
-build CMakeFiles/bebot.dir/bebot/bernsteindifferentialmatrix.cpp.o: CXX_COMPILER__bebot ../../bebot/bernsteindifferentialmatrix.cpp || cmake_object_order_depends_target_bebot
+build CMakeFiles/bebot.dir/src/bernsteindifferentialmatrix.cpp.o: CXX_COMPILER__bebot ../../src/bernsteindifferentialmatrix.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
-  DEP_FILE = CMakeFiles/bebot.dir/bebot/bernsteindifferentialmatrix.cpp.o.d
+  DEP_FILE = CMakeFiles/bebot.dir/src/bernsteindifferentialmatrix.cpp.o.d
   FLAGS = -g -fPIC
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
-  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/bebot
+  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
 
-build CMakeFiles/bebot.dir/bebot/nchoosek_mod.cpp.o: CXX_COMPILER__bebot ../../bebot/nchoosek_mod.cpp || cmake_object_order_depends_target_bebot
+build CMakeFiles/bebot.dir/src/nchoosek_mod.cpp.o: CXX_COMPILER__bebot ../../src/nchoosek_mod.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
-  DEP_FILE = CMakeFiles/bebot.dir/bebot/nchoosek_mod.cpp.o.d
+  DEP_FILE = CMakeFiles/bebot.dir/src/nchoosek_mod.cpp.o.d
   FLAGS = -g -fPIC
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
-  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/bebot
+  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
 
-build CMakeFiles/bebot.dir/examples/bebot/ma_57/example_2/libbebot.cpp.o: CXX_COMPILER__bebot ../../examples/bebot/ma_57/example_2/libbebot.cpp || cmake_object_order_depends_target_bebot
+build CMakeFiles/bebot.dir/examples/bebot/Ex1/libbebot.cpp.o: CXX_COMPILER__bebot ../../examples/bebot/Ex1/libbebot.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
-  DEP_FILE = CMakeFiles/bebot.dir/examples/bebot/ma_57/example_2/libbebot.cpp.o.d
+  DEP_FILE = CMakeFiles/bebot.dir/examples/bebot/Ex1/libbebot.cpp.o.d
   FLAGS = -g -fPIC
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
-  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/examples/bebot/ma_57/example_2
+  OBJECT_FILE_DIR = CMakeFiles/bebot.dir/examples/bebot/Ex1
 
 
 # =============================================================================
@@ -336,17 +336,17 @@ build CMakeFiles/bebot.dir/examples/bebot/ma_57/example_2/libbebot.cpp.o: CXX_CO
 
 
 #############################################
-# Link the shared library ../../examples/bebot/ma_57/example_2/libbebot.so
+# Link the shared library ../../examples/bebot/Ex1/libbebot.so
 
-build ../../examples/bebot/ma_57/example_2/libbebot.so: CXX_SHARED_LIBRARY_LINKER__bebot CMakeFiles/bebot.dir/bebot/bebot.cpp.o CMakeFiles/bebot.dir/bebot/bernsteinpoly.cpp.o CMakeFiles/bebot.dir/bebot/degelevmatrix.cpp.o CMakeFiles/bebot.dir/bebot/bernsteinmatrix_a2b.cpp.o CMakeFiles/bebot.dir/bebot/bernsteindifferentialmatrix.cpp.o CMakeFiles/bebot.dir/bebot/nchoosek_mod.cpp.o CMakeFiles/bebot.dir/examples/bebot/ma_57/example_2/libbebot.cpp.o | /opt/intel/oneapi/mkl/latest/lib/libmkl_intel_lp64.so /opt/intel/oneapi/mkl/latest/lib/libmkl_sequential.so /opt/intel/oneapi/mkl/latest/lib/libmkl_core.so /opt/intel/oneapi/mkl/latest/lib/libmkl_intel_thread.so /opt/intel/oneapi/mkl/latest/lib/libmkl_rt.so /opt/intel/oneapi/mkl/latest/lib/libmkl_avx2.so.2 /opt/intel/oneapi/mkl/latest/lib/libmkl_def.so.2 /opt/intel/oneapi/2024.1/lib/libiomp5.so /home/camilla/dev_cpp/ipopt/lib/libipopt.so /home/camilla/dev_cpp/ipopt/lib/libsipopt.so /home/camilla/dev_cpp/ipopt/lib/libipoptamplinterface.so /usr/local/lib/libhsl.so
+build ../../examples/bebot/Ex1/libbebot.so: CXX_SHARED_LIBRARY_LINKER__bebot CMakeFiles/bebot.dir/src/bebot.cpp.o CMakeFiles/bebot.dir/src/bernsteinpoly.cpp.o CMakeFiles/bebot.dir/src/degelevmatrix.cpp.o CMakeFiles/bebot.dir/src/bernsteinmatrix_a2b.cpp.o CMakeFiles/bebot.dir/src/bernsteindifferentialmatrix.cpp.o CMakeFiles/bebot.dir/src/nchoosek_mod.cpp.o CMakeFiles/bebot.dir/examples/bebot/Ex1/libbebot.cpp.o | /opt/intel/oneapi/mkl/latest/lib/libmkl_intel_lp64.so /opt/intel/oneapi/mkl/latest/lib/libmkl_sequential.so /opt/intel/oneapi/mkl/latest/lib/libmkl_core.so /opt/intel/oneapi/mkl/latest/lib/libmkl_intel_thread.so /opt/intel/oneapi/mkl/latest/lib/libmkl_rt.so /opt/intel/oneapi/mkl/latest/lib/libmkl_avx2.so.2 /opt/intel/oneapi/mkl/latest/lib/libmkl_def.so.2 /opt/intel/oneapi/2024.1/lib/libiomp5.so ../../../ipopt/lib/libipopt.so ../../../ipopt/lib/libsipopt.so ../../../ipopt/lib/libipoptamplinterface.so /usr/local/lib/libhsl.so
   LANGUAGE_COMPILE_FLAGS = -g
-  LINK_LIBRARIES = -Wl,-rpath,/opt/intel/oneapi/mkl/latest/lib:/opt/intel/oneapi/2024.1/lib:/home/camilla/dev_cpp/ipopt/lib:/usr/local/lib  /opt/intel/oneapi/mkl/latest/lib/libmkl_intel_lp64.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_sequential.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_core.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_intel_thread.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_rt.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_avx2.so.2  /opt/intel/oneapi/mkl/latest/lib/libmkl_def.so.2  /opt/intel/oneapi/2024.1/lib/libiomp5.so  /home/camilla/dev_cpp/ipopt/lib/libipopt.so  /home/camilla/dev_cpp/ipopt/lib/libsipopt.so  /home/camilla/dev_cpp/ipopt/lib/libipoptamplinterface.so  /usr/local/lib/libhsl.so  -lpthread
+  LINK_LIBRARIES = -Wl,-rpath,/opt/intel/oneapi/mkl/latest/lib:/opt/intel/oneapi/2024.1/lib:/home/camilla/dev_cpp/BeBOT_cpp/../ipopt/lib:/usr/local/lib  /opt/intel/oneapi/mkl/latest/lib/libmkl_intel_lp64.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_sequential.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_core.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_intel_thread.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_rt.so  /opt/intel/oneapi/mkl/latest/lib/libmkl_avx2.so.2  /opt/intel/oneapi/mkl/latest/lib/libmkl_def.so.2  /opt/intel/oneapi/2024.1/lib/libiomp5.so  ../../../ipopt/lib/libipopt.so  ../../../ipopt/lib/libsipopt.so  ../../../ipopt/lib/libipoptamplinterface.so  /usr/local/lib/libhsl.so  -lpthread
   OBJECT_DIR = CMakeFiles/bebot.dir
   POST_BUILD = :
   PRE_LINK = :
   SONAME = libbebot.so
   SONAME_FLAG = -Wl,-soname,
-  TARGET_FILE = ../../examples/bebot/ma_57/example_2/libbebot.so
+  TARGET_FILE = ../../examples/bebot/Ex1/libbebot.so
   TARGET_PDB = bebot.so.dbg
 
 
@@ -576,13 +576,13 @@ build CMakeFiles/Continuous: CUSTOM_COMMAND
 # =============================================================================
 # Target aliases.
 
-build BeBOT_cpp: phony ../../test_bebot
+build BeBOT_cpp: phony ../../examples/bebot/Ex1/bebot_ex1
 
-build bebot: phony ../../examples/bebot/ma_57/example_2/libbebot.so
+build bebot: phony ../../examples/bebot/Ex1/libbebot.so
 
-build libbebot.so: phony ../../examples/bebot/ma_57/example_2/libbebot.so
+build bebot_ex1: phony ../../examples/bebot/Ex1/bebot_ex1
 
-build test_bebot: phony ../../test_bebot
+build libbebot.so: phony ../../examples/bebot/Ex1/libbebot.so
 
 # =============================================================================
 # Folder targets.
@@ -592,7 +592,7 @@ build test_bebot: phony ../../test_bebot
 #############################################
 # Folder: /home/camilla/dev_cpp/BeBOT_cpp/build/default
 
-build all: phony ../../test_bebot ../../examples/bebot/ma_57/example_2/libbebot.so
+build all: phony ../../examples/bebot/Ex1/bebot_ex1 ../../examples/bebot/Ex1/libbebot.so
 
 # =============================================================================
 # Built-in targets
