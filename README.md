@@ -1,5 +1,5 @@
 # BeBOT_cpp
-BeBOT C++ library.
+This repository contains the implementation of the Bernstein/Bezier Optimal Trajectories toolkit [BeBOT](https://github.com/caslabuiowa/BeBOT).
 
 In the examples you can find implementation of lgl, bebot and piecewisebebot.
 
