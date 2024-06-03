@@ -18,7 +18,17 @@ In the example provided, the following optimal control problem is solved using B
 $$
 \min_{x(t),u(t),t_f} \int_0^{t_f} 1 \, d\tau
 $$
+
 subject to:
-$$ \dot{x_1(t)} = x_2(t), \quad \dot{x_2(t)} = u(t), $$
-$$ x_1(0) = -3, \quad x_2(0) = 0, \quad x_1(t_f) = 0, \quad x_2(t_f) = 0, $$
-$$ u(t) \leq a_{\max}, \quad -u(t) \leq -a_{\min} $$
+
+$$
+\dot{x_1(t)} = x_2(t), \quad \dot{x_2(t)} = u(t),
+$$
+
+$$
+x_1(0) = -3, \quad x_2(0) = 0, \quad x_1(t_f) = 0, \quad x_2(t_f) = 0,
+$$
+
+$$
+u(t) \leq a_{\max}, \quad -u(t) \leq -a_{\min}
+$$
