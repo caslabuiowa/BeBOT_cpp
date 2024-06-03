@@ -65,7 +65,7 @@ int main() {
     }
 
     // Create the problem
-    int N = 7;
+    int N = 5;
     double tf = 10.0;
     double amax = 5.0;
     double amin = -5.0;

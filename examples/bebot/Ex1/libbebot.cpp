@@ -160,15 +160,14 @@ public:
         const Number* lambda,
         Number obj_value,
         const IpoptData* ip_data,
-        IpoptCalculatedQuantities* ip_cq) { 
+        IpoptCalculatedQuantities* ip_cq){
         // Extract solution
         // x = optimal solution
         // obj_fun = optimal cost
 
-
         // Control points
         solution_x_.resize(n - 1);
-        for (Index i = 0; i < n; ++i) {
+        for (Index i = 0; i < n - 1; ++i) {
             solution_x_[i] = x[i];
         }
         final_obj_value_ = obj_value;
@@ -183,8 +182,6 @@ public:
         // Retrieve the final objective value
         std::cout << "Final Objective Value: " << obj_value << std::endl;
 
-
-
         // Tf
         tf_ = x[(N_ + 2) - 1];
         bebot_ = Bebot(N_, tf_);
@@ -195,16 +192,13 @@ public:
             final_time_[i] = i * obj_value / 999.0;
         }
 
-        
-        
         std::vector<std::vector<double>> solution_x_2d(1, std::vector<double>(solution_x_.begin(), solution_x_.end()));
         bernsteinpoly_result_ = BernsteinPoly(solution_x_2d, final_time_, 0, tf_);
-
+        
         std::vector<double> flattened_result;
         for (const auto& row : bernsteinpoly_result_) {
             flattened_result.insert(flattened_result.end(), row.begin(), row.end());
         }
-
         writeToCSV(final_time_, flattened_result, "x.csv");
         writeToCSV(bebot_.getNodes(), solution_x_, "x_controlpoints.csv");
 
@@ -240,6 +234,7 @@ public:
     const std::vector<Number>& get_solution_x() const { return solution_x_; }
     Number get_final_obj_value() const { return final_obj_value_; }
 
+
 private:
     int N_;
     double tf_;
@@ -266,15 +261,15 @@ public:
 
 extern "C" {
     PointSetProblem* create_point_set_problem(int N, double tf, double amax, double amin, double x10, double x1f, double x20, double x2f) {
-        std::cout << "Received parameters:" << std::endl;
-        std::cout << "N: " << N << std::endl;
-        std::cout << "tf: " << tf << std::endl;
-        std::cout << "amax: " << amax << std::endl;
-        std::cout << "amin: " << amin << std::endl;
-        std::cout << "x10: " << x10 << std::endl;
-        std::cout << "x1f: " << x1f << std::endl;
-        std::cout << "x20: " << x20 << std::endl;
-        std::cout << "x2f: " << x2f << std::endl;
+        //std::cout << "Received parameters:" << std::endl;
+        //std::cout << "N: " << N << std::endl;
+        //std::cout << "tf: " << tf << std::endl;
+        //std::cout << "amax: " << amax << std::endl;
+        //std::cout << "amin: " << amin << std::endl;
+        //std::cout << "x10: " << x10 << std::endl;
+        //std::cout << "x1f: " << x1f << std::endl;
+        //std::cout << "x20: " << x20 << std::endl;
+        //std::cout << "x2f: " << x2f << std::endl;
         return new PointSetProblem(N, tf, amax, amin, x10, x1f, x20, x2f);
     }
 
@@ -287,6 +282,8 @@ extern "C" {
         app->Options()->SetStringValue("hessian_approximation", "limited-memory");
         app->Options()->SetIntegerValue("max_iter", 5000);
         app->Options()->SetNumericValue("tol", 1e-6);
+        app->Options()->SetIntegerValue("print_level", 0); 
+
 
         app->RethrowNonIpoptException(true);
         ApplicationReturnStatus status = app->Initialize();
@@ -299,6 +296,15 @@ extern "C" {
 
         if (status == Solve_Succeeded || status == Solved_To_Acceptable_Level) {
             std::cout << "Optimization succeeded!" << std::endl;
+            
+            // Print the optimal solution
+            const auto& solution_x = problem->get_solution_x();
+            std::cout << "Optimal Solution (x): ";
+            for (Index i = 0; i < solution_x.size(); i++) {
+                std::cout << solution_x[i] << " ";
+            }
+            std::cout << std::endl;
+
         } else {
             std::cerr << "Optimization failed with status " << status << std::endl;
         }
