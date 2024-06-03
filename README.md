@@ -1,5 +1,5 @@
 # BeBOT_cpp
-This repository contains the implementation of the Bernstein/Bezier Optimal Trajectories toolkit [BeBOT](https://github.com/caslabuiowa/BeBOT). 
+This repository contains the implementation of the Bernstein/Bezier Optimal Trajectories toolkit [BeBOT](https://github.com/caslabuiowa/BeBOT). Python and Matlab implementations of this library are also available here [Python BeBOT](https://github.com/caslabuiowa/BeBOT) and [MATLAB BeBOT](https://github.com/caslabuiowa/BeBOT_MATLAB).
 
 In the examples you can find implementation of lgl, bebot and piecewisebebot.
 
@@ -13,16 +13,8 @@ To run this examples you must have the following installed:
 
 We reccomed following the following guide to install Ipopt and its dependencies https://coin-or.github.io/Ipopt/INSTALL.html
 
-## Contributors
-- [Wladimir Petrov](https://github.com/wladimirpetrov)
-- The BeBOT_cpp library is based on the original MATLAB library by [Venanzio Cichella](https://github.com/caslabuiowa/BeBOT_MATLAB) and Python library by [magicbycalvin](https://github.com/caslabuiowa/BeBOT)
-
-Ipopt taken from - [coin-or](https://github.com/coin-or)
-
-MA27, MA57 solvers - (https://www.hsl.rl.ac.uk/catalogue/ma57.html)
-
-Pardiso solver (academic license) - (https://panua.ch/pardiso/)
-
-Spral solver - [ralna](https://github.com/ralna) (SPRAL was built on one CPU only, the next update will include parallel processing).
-
-MKL library - (library https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html)
+## Example 1
+In the example provided, the following optimal control problem is solved using Bernstein polynomials.
+$$
+\min_{x(t),u(t),t_f} \int_0^{t_f} 1 d\tau
+$$
