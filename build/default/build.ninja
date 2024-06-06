@@ -277,7 +277,7 @@ build cmake_object_order_depends_target_bebot: phony || CMakeFiles/bebot.dir
 build CMakeFiles/bebot.dir/src/bebot.cpp.o: CXX_COMPILER__bebot ../../src/bebot.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
   DEP_FILE = CMakeFiles/bebot.dir/src/bebot.cpp.o.d
-  FLAGS = -g -fPIC
+  FLAGS = -g -fPIC   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
   OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
@@ -285,7 +285,7 @@ build CMakeFiles/bebot.dir/src/bebot.cpp.o: CXX_COMPILER__bebot ../../src/bebot.
 build CMakeFiles/bebot.dir/src/bernsteinpoly.cpp.o: CXX_COMPILER__bebot ../../src/bernsteinpoly.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
   DEP_FILE = CMakeFiles/bebot.dir/src/bernsteinpoly.cpp.o.d
-  FLAGS = -g -fPIC
+  FLAGS = -g -fPIC   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
   OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
@@ -293,7 +293,7 @@ build CMakeFiles/bebot.dir/src/bernsteinpoly.cpp.o: CXX_COMPILER__bebot ../../sr
 build CMakeFiles/bebot.dir/src/degelevmatrix.cpp.o: CXX_COMPILER__bebot ../../src/degelevmatrix.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
   DEP_FILE = CMakeFiles/bebot.dir/src/degelevmatrix.cpp.o.d
-  FLAGS = -g -fPIC
+  FLAGS = -g -fPIC   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
   OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
@@ -301,7 +301,7 @@ build CMakeFiles/bebot.dir/src/degelevmatrix.cpp.o: CXX_COMPILER__bebot ../../sr
 build CMakeFiles/bebot.dir/src/bernsteinmatrix_a2b.cpp.o: CXX_COMPILER__bebot ../../src/bernsteinmatrix_a2b.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
   DEP_FILE = CMakeFiles/bebot.dir/src/bernsteinmatrix_a2b.cpp.o.d
-  FLAGS = -g -fPIC
+  FLAGS = -g -fPIC   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
   OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
@@ -309,7 +309,7 @@ build CMakeFiles/bebot.dir/src/bernsteinmatrix_a2b.cpp.o: CXX_COMPILER__bebot ..
 build CMakeFiles/bebot.dir/src/bernsteindifferentialmatrix.cpp.o: CXX_COMPILER__bebot ../../src/bernsteindifferentialmatrix.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
   DEP_FILE = CMakeFiles/bebot.dir/src/bernsteindifferentialmatrix.cpp.o.d
-  FLAGS = -g -fPIC
+  FLAGS = -g -fPIC   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
   OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
@@ -317,7 +317,7 @@ build CMakeFiles/bebot.dir/src/bernsteindifferentialmatrix.cpp.o: CXX_COMPILER__
 build CMakeFiles/bebot.dir/src/nchoosek_mod.cpp.o: CXX_COMPILER__bebot ../../src/nchoosek_mod.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
   DEP_FILE = CMakeFiles/bebot.dir/src/nchoosek_mod.cpp.o.d
-  FLAGS = -g -fPIC
+  FLAGS = -g -fPIC   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
   OBJECT_FILE_DIR = CMakeFiles/bebot.dir/src
@@ -325,7 +325,7 @@ build CMakeFiles/bebot.dir/src/nchoosek_mod.cpp.o: CXX_COMPILER__bebot ../../src
 build CMakeFiles/bebot.dir/examples/bebot/Ex1/libbebot.cpp.o: CXX_COMPILER__bebot ../../examples/bebot/Ex1/libbebot.cpp || cmake_object_order_depends_target_bebot
   DEFINES = -Dbebot_EXPORTS
   DEP_FILE = CMakeFiles/bebot.dir/examples/bebot/Ex1/libbebot.cpp.o.d
-  FLAGS = -g -fPIC
+  FLAGS = -g -fPIC   -std=gnu++17
   INCLUDES = -I../../include -I../../../ipopt/include -I../../../ipopt/src/Interfaces -I/opt/intel/oneapi/mkl/latest/include
   OBJECT_DIR = CMakeFiles/bebot.dir
   OBJECT_FILE_DIR = CMakeFiles/bebot.dir/examples/bebot/Ex1
