@@ -129,39 +129,14 @@ std::tuple<Matrix, Matrix, std::vector<double>> deCasteljau(const Matrix& Cp, do
 
     for (size_t row = 0; row < n; ++row) {
         for (size_t col = 0; col < n; ++col) {
-            C[row + 1][col] = C[row + 1][col] + A[row][col];
+            C[row + 1][col] = C[row + 1][col] + B[row][col];
         }
     }
 
-    for (const auto& row : C) {
-        for (const auto& elem : row) {
-            std::cout << elem << " ";
-        }
-        std::cout << std::endl;
-    }
     Matrix Cpout(m, std::vector<double>(2 * n + 1));
     Matrix Cptemp = Cp;
     Matrix Cp1(m, std::vector<double>(n));
     Matrix Cp2(m, std::vector<double>(n));
-
-    std::vector<int> row_indices = {0, 1};
-    std::vector<int> col_indices = {1, 3};
-
-    // Select the specified rows and columns
-    Matrix Cptemp_new = selectSubmatrix(Cptemp, row_indices, col_indices);
-    for (const auto& row : Cptemp) {
-        for (const auto& elem : row) {
-            std::cout << elem << " ";
-        }
-        std::cout << std::endl;
-    }
-
-    for (const auto& row : Cptemp_new) {
-        for (const auto& elem : row) {
-            std::cout << elem << " ";
-        }
-        std::cout << std::endl;
-    }
 
     for (int i = n; i >= 1; --i) {
         Matrix temp = multiplyMatrices(selectSubmatrix(Cptemp,{0, Cptemp.size()-1},{0, i}), selectSubmatrix(C,{0, i},{0, i-1}));
