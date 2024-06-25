@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Site BuildName="Linux-c++"
-	BuildStamp="20240619-1525-Experimental"
+	BuildStamp="20240625-1924-Experimental"
 	Name="CASLabLinux"
 	Generator="ctest-3.16.3"
 	CompilerName="/usr/bin/c++"
@@ -21,14 +21,14 @@
 	TotalVirtualMemory="2047"
 	TotalPhysicalMemory="31732"
 	LogicalProcessorsPerPhysical="2"
-	ProcessorClockFrequency="2600"
+	ProcessorClockFrequency="3159.87"
 	>
 	<Testing>
-		<StartDateTime>Jun 19 11:23 CDT</StartDateTime>
-		<StartTestTime>1718814217</StartTestTime>
+		<StartDateTime>Jun 25 14:24 CDT</StartDateTime>
+		<StartTestTime>1719343490</StartTestTime>
 		<TestList/>
-		<EndDateTime>Jun 19 11:23 CDT</EndDateTime>
-		<EndTestTime>1718814217</EndTestTime>
+		<EndDateTime>Jun 25 14:24 CDT</EndDateTime>
+		<EndTestTime>1719343490</EndTestTime>
 		<ElapsedMinutes>0</ElapsedMinutes>
 	</Testing>
 </Site>

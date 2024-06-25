@@ -10,16 +10,23 @@
 #include "../include/bernstein_estimator.h"
 
 // Function to calculate ECDF (Empirical Cumulative Distribution Function)
+
 std::pair<std::vector<double>, std::vector<double>> ecdf(const std::vector<double>& data) {
+    // Sort the data
     std::vector<double> sorted_data = data;
     std::sort(sorted_data.begin(), sorted_data.end());
 
-    std::vector<double> cdf(data.size());
-    std::iota(cdf.begin(), cdf.end(), 1);
-    for (auto& val : cdf) {
-        val /= data.size();
+    // Compute the ECDF values
+    std::vector<double> cdf(sorted_data.size() + 1);
+    cdf[0] = 0.0; // First element is 0
+    for (size_t i = 1; i < sorted_data.size(); ++i) {
+        cdf[i] = static_cast<double>(i) / sorted_data.size();
     }
-    
+    cdf.back() = 1.0; // Last element is 1
+
+    // Include the first element in sorted_data to match the cdf size
+    sorted_data.insert(sorted_data.begin(), sorted_data.front());
+
     return {cdf, sorted_data};
 }
 
